@@ -1,0 +1,35 @@
+# Sobe os dois bancos: docker compose up -d
+# Na primeira vez, os scripts de database/ rodam sozinhos (cria tabelas,
+# coleção, validação, índice e dados de exemplo). Não precisa de psql/mongosh.
+# Para recriar do zero: docker compose down -v && docker compose up -d
+# Portas 5433 e 27018 para não conflitar com bancos já instalados na máquina.
+services:
+  postgres:
+    image: postgres:17
+    container_name: petshop-postgres
+    environment:
+      POSTGRES_USER: petshop
+      POSTGRES_PASSWORD: petshop
+      POSTGRES_DB: petshop
+      TZ: America/Sao_Paulo   # fuso do Brasil: NOW() e CURRENT_DATE no horário local
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database:/docker-entrypoint-initdb.d:ro
+
+  mongo:
+    image: mongo:8
+    container_name: petshop-mongo
+    environment:
+      MONGO_INITDB_DATABASE: petshop
+      TZ: America/Sao_Paulo
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodata:/data/db
+      - ./database:/docker-entrypoint-initdb.d:ro
+
+volumes:
+  pgdata:
+  mongodata:
