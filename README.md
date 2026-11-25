@@ -34,8 +34,6 @@ docker compose up -d                 # sobe o PostgreSQL e o MongoDB
 python main.py                       # abre o menu da aplicação
 ```
 
-> Projeto num **pendrive** (FAT/exFAT)? No Linux o `venv` falha porque o pendrive não aceita links simbólicos. Crie o ambiente fora dele: `python -m venv ~/.venvs/petshop` e `source ~/.venvs/petshop/bin/activate`.
-
 Bibliotecas usadas (em `requirements.txt`): `psycopg` (PostgreSQL), `pymongo` (MongoDB), `python-dotenv` (lê o `.env`) e `tabulate` (mostra tabelas no terminal).
 
 Na primeira vez que os bancos sobem, os scripts da pasta `database/` rodam sozinhos e criam as tabelas, a coleção, a validação, o índice e os dados de exemplo. Não é preciso instalar `psql` nem `mongosh`.
