@@ -11,6 +11,43 @@ Aplicação de terminal para um petshop: cadastro de tutores e pets, catálogo d
 - _Luiz Theodoro Sartori de Freitas_
 - _Roberto Nunes Ferreira_
 
+## TODO (até a entrega na Aula 18)
+
+> Seção de organização do grupo: apagar antes de entregar. Antes de começar, rode `git pull`; ao terminar cada item, marque o `[x]` aqui no mesmo commit. Cada tarefa mexe em arquivos diferentes, para não dar conflito.
+
+### Tarefa 1: Banco e modelo ER (responsável: ______)
+
+- [ ] **Imagem do modelo ER** gerada pelo DBeaver a partir do banco real, salva em `docs/modelo_er.png`:
+  1. Suba os bancos: `docker compose up -d`.
+  2. No DBeaver: **Nova conexão → PostgreSQL**, com host `localhost`, porta `5433`, banco `petshop`, usuário `petshop` e senha `petshop`. Na primeira vez, ele pede para baixar o driver.
+  3. Abra `petshop → Bancos de dados → petshop → Schemas → public`, dê dois cliques e vá na aba **Diagrama ER** (*ER Diagram*).
+  4. Organize as tabelas (botão direito → **Layout**) e exporte: botão direito no diagrama → **Exportar diagrama** (*Export diagram*) → PNG.
+  5. No README, logo abaixo de "Modelo ER:", coloque `![Modelo ER](docs/modelo_er.png)`.
+
+  Conferir na imagem: as 5 tabelas com as PKs, as 4 FKs (`pets.tutor_id`, `agendamentos.pet_id`, `agendamentos.servico_id` e `pagamentos.agendamento_id`) e a relação 1:1 entre agendamento e pagamento.
+- [ ] **Mais dados de exemplo:** 2 tutores, 3 pets e alguns agendamentos, pagamentos e atendimentos a mais, com os `pet_id` batendo entre `database/postgres.sql` e `database/mongo.js`. Para testar, recrie os bancos: `docker compose down -v && docker compose up -d`.
+
+Arquivos: `docs/`, `database/postgres.sql`, `database/mongo.js` e a linha da imagem no README.
+
+### Tarefa 2: Relatórios novos (responsável: ______)
+
+- [ ] **Relatório com `GROUP BY` no PostgreSQL:** faturamento por serviço (quantidade de pagamentos e total pago por serviço) como opção 8 do menu de Pagamentos. Função nova em `pagamento_repository.py`, opção nova em `pagamento_menu.py`.
+- [ ] **Relatório com `aggregate` no MongoDB:** quantidade de atendimentos por tipo (`$group`) como opção nova do menu de Atendimentos. Função nova em `atendimento_repository.py`, opção nova em `atendimento_menu.py`.
+- [ ] **Regra nova no `$jsonSchema`** (ex.: `maxItems` na lista de vacinas) em `database/mongo.js`, testada com a opção 7 do menu de Atendimentos. Avisar a Tarefa 1, que também mexe nesse arquivo.
+
+Arquivos: `app/repositories/`, `app/menus/` e o trecho do `$jsonSchema` no `database/mongo.js`.
+
+### Tarefa 3: Guia de avaliação no README (responsável: ______)
+
+Não haverá apresentação: o professor vai entender o trabalho só pelo README.
+
+- [ ] **Seção "Onde encontrar cada item do enunciado"**, logo depois de "Como executar": uma tabela ligando cada exigência (3 tabelas com PK/FK, CRUD, `JOIN`, `$jsonSchema`, campos obrigatórios, tipos, `enum`/`minimum`/`maximum`, `pattern`, índice e integração) ao arquivo/função e à opção do menu onde ela aparece.
+- [ ] **Passo a passo curto para testar tudo pelo menu** (ex.: Atendimentos → 7 para o documento inválido, → 9 para o índice, menu principal → 7 para a integração), com um exemplo da saída esperada.
+- [ ] **Ajustes de texto:** trocar "para a apresentação" por "para testar" (seção "Acessar os bancos direto" e menu de Atendimentos) e incluir `tzdata` na lista de bibliotecas (fuso horário no Windows).
+- [ ] **Por último**, depois que as Tarefas 1 e 2 terminarem: incluir os relatórios novos no guia e apagar esta seção de TODO.
+
+Arquivos: só o `README.md`.
+
 ## Tecnologias
 
 | Item | Escolha |
